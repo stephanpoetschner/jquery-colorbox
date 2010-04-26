@@ -9,8 +9,8 @@
 	TRUE = true,
 	FALSE = false,
 	cboxPublic,
-	isIE = !$.support.opacity,
-	isIE6 = isIE && !window.XMLHttpRequest,
+	isIE = $.browser.msie && !$.support.opacity, // feature detection alone gave false positives in some browsers
+	isIE6 = isIE && $.browser.version < 7,
 
 	// Event Strings (to increase compression)
 	cbox_open = 'cbox_open',
@@ -65,8 +65,6 @@
 		innerHeight: FALSE,
 		initialWidth: "400",
 		initialHeight: "400",
-		topPosition: FALSE,
-		leftPosition: FALSE,
 		maxWidth: FALSE,
 		maxHeight: FALSE,
 		scalePhotos: TRUE,
@@ -133,7 +131,7 @@
 		
 		element = elem;
 		
-		settings = $(element).data(colorbox);
+		settings = $.extend({}, $(element).data(colorbox));
 		
 		process(); // Convert functions to their returned values.
 		
@@ -340,18 +338,11 @@
 	cboxPublic.position = function (speed, loadedCallback) {
 		var
 		animate_speed,
-		winHeight = $window.height(), posTop, posLeft;
+		winHeight = $window.height(),
 		// keeps the top and left positions within the browser's viewport.
-		if (!settings.topPosition) {
-			posTop = Math.max(winHeight - settings.h - loadedHeight - interfaceHeight,0)/2 + $window.scrollTop();
-		} else {
-			posTop = settings.topPosition;	
-		}
-		if (!settings.leftPosition) {
-			posLeft = Math.max(document.documentElement.clientWidth - settings.w - loadedWidth - interfaceWidth,0)/2 + $window.scrollLeft();
-		} else {
-			posLeft = settings.leftPosition;
-		}
+		posTop = Math.max(winHeight - settings.h - loadedHeight - interfaceHeight,0)/2 + $window.scrollTop(),
+		posLeft = Math.max(document.documentElement.clientWidth - settings.w - loadedWidth - interfaceWidth,0)/2 + $window.scrollLeft();
+		
 		// setting the speed to 0 to reduce the delay between same-sized content.
 		animate_speed = ($cbox.width() === settings.w+loadedWidth && $cbox.height() === settings.h+loadedHeight) ? 0 : speed;
 		
@@ -548,7 +539,7 @@
 		
 		element = $related[index];
 		
-		settings = $(element).data(colorbox);
+		settings = $.extend({}, $(element).data(colorbox));
 		
 		//convert functions to static values
 		process();

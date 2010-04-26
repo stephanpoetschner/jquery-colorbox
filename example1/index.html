@@ -29,8 +29,6 @@
 					onCleanup:function(){ alert('onCleanup: colorbox has begun the close process'); },
 					onClosed:function(){ alert('onClosed: colorbox has completely closed'); }
 				});
-				$(".example10").colorbox({topPosition: 40});
-				$(".example11").colorbox({topPosition: 10, leftPosition: 10});
 				
 				//Example of preserving a JavaScript event for inline calls.
 				$("#click").click(function(){ 
@@ -72,9 +70,6 @@
 		<h2>Demonstration of using callbacks</h2>
 		<p><a class='example9' href="../content/marylou.jpg" title="Marylou on Cumberland Island">Example with alerts</a>. Callbacks and event-hooks allow users to extend functionality without having to rewrite parts of the plugin.</p>
 		
-		<h2>Demonstration of topPosition and leftPosition</h2>
-		<p><a class="example10" href="../content/ajax.html">Horizontal center, vertical top</a></p>
-		<p><a class="example11" href="../content/ajax.html">Upper left corner</a></p>
 		<!-- This contains the hidden content for inline calls -->
 		<div style='display:none'>
 			<div id='inline_example1' style='padding:10px; background:#fff;'>
